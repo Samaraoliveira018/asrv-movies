@@ -26,12 +26,12 @@ function App() {
 
   return (
     <>
-      <div>
-        Filmes
-        <div className="grid grid-cols-4 gap-4 max-w-90 bg-black" >
+      <div >
+        <span className="text-lg text-slate-50 font-serif">ASRV MOVIES</span>
+        <div className="grid grid-cols-3 gap-4 p-12" >
           {filmes.map((filme:any) =>{
             return(
-              <div className='flex-wrap  mx-auto ' key={filme.id}>
+              <div className='grid grid-4  mx-auto ' key={filme.id}>
                   <img className='max-w-36 shadow-md' src={`${imagePath}${filme.poster_path}`} alt="filme" />
                   <span className='text-slate-50'>{filme.title}</span>
                   <span className='text-slate-50'>{' '}Votos {filme.vote_count}</span>
