@@ -4,8 +4,9 @@ import './App.css'
 function App() {
   const imagePath = 'https://image.tmdb.org/t/p/w500/'
   const [filmes,setFilmes] = useState([]);
+  const [hidden, setHidden] = useState(null);
 
-  const url = 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=1';
+  const url = 'https://api.themoviedb.org/3/movie/popular?language=en-US&page=3';
   const options = {
     method: 'GET',
     headers: {
@@ -28,13 +29,23 @@ function App() {
     <>
       <div >
         <span className="text-lg text-slate-50 font-serif">ASRV MOVIES</span>
-        <div className="grid grid-cols-3 gap-4 p-12" >
+        <div className="grid grid-cols-4 gap-12 p-10" >
           {filmes.map((filme:any) =>{
             return(
-              <div className='grid grid-4  mx-auto ' key={filme.id}>
-                  <img className='max-w-36 shadow-md' src={`${imagePath}${filme.poster_path}`} alt="filme" />
-                  <span className='text-slate-50'>{filme.title}</span>
-                  <span className='text-slate-50'>{' '}Votos {filme.vote_count}</span>
+              <div className='grid grid-4 col rounded-sm w-14
+               transition delay-150 duration-300 ease-in-out hover:scale-125' key={filme.id} 
+               onMouseEnter={() => setHidden(filme.id)}
+               onMouseLeave={() => setHidden(null)}
+               >
+                  <img className='max-w-60 shadow-md rounded-sm' src={`${imagePath}${filme.poster_path}`} alt="filme"
+                  />
+                  {hidden === filme.id &&  (<div className='absolute bottom-0 flex flex-col rounded-sm p-2
+                   w-60 h-40 bg-cyan-800'>
+                    <span className='text-slate-50 font-bold'>{filme.title}</span>
+                    <span className='text-slate-50'>{filme.release_date}</span>
+                    <span className='text-slate-50'>{' '}{filme.vote_count}-Votos</span>
+                    <button>Sinopse</button>
+                  </div>)}
               </div>
             )
           })}
